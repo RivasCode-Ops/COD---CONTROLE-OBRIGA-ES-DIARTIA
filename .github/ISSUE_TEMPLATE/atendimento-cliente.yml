@@ -1,0 +1,45 @@
+name: Atendimento ao cliente
+description: Registrar demanda, pendência ou acompanhamento de cliente
+title: "[CLIENTE] "
+labels: ["cliente"]
+body:
+  - type: input
+    id: cliente
+    attributes:
+      label: Nome do cliente
+      placeholder: Ex. João Silva
+    validations:
+      required: true
+
+  - type: textarea
+    id: demanda
+    attributes:
+      label: Demanda
+      description: O que o cliente precisa?
+      placeholder: Ex. Atualização documental, retorno de processo, envio de orçamento
+    validations:
+      required: true
+
+  - type: dropdown
+    id: prioridade
+    attributes:
+      label: Prioridade
+      options:
+        - Baixa
+        - Média
+        - Alta
+        - Urgente
+    validations:
+      required: true
+
+  - type: input
+    id: prazo
+    attributes:
+      label: Prazo ou data de retorno
+      placeholder: Ex. 2026-04-09
+
+  - type: textarea
+    id: proximo_contato
+    attributes:
+      label: Próxima ação
+      placeholder: Ex. Enviar mensagem, ligar, pedir documento, atualizar processo

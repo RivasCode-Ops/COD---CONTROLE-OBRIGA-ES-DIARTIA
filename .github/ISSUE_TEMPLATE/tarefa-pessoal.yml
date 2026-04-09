@@ -1,0 +1,37 @@
+name: Tarefa pessoal
+description: Abrir uma tarefa pessoal
+title: "[PESSOAL] "
+labels: ["pessoal"]
+body:
+  - type: textarea
+    id: descricao
+    attributes:
+      label: Descrição
+      description: O que precisa ser feito?
+      placeholder: Ex. Pagar conta, marcar consulta, comprar algo
+    validations:
+      required: true
+
+  - type: dropdown
+    id: prioridade
+    attributes:
+      label: Prioridade
+      options:
+        - Baixa
+        - Média
+        - Alta
+        - Urgente
+    validations:
+      required: true
+
+  - type: input
+    id: prazo
+    attributes:
+      label: Prazo
+      placeholder: Ex. 2026-04-10
+
+  - type: textarea
+    id: checklist
+    attributes:
+      label: Próximos passos
+      placeholder: Liste os passos, um por linha

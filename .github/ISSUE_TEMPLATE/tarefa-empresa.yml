@@ -1,0 +1,50 @@
+name: Tarefa da empresa
+description: Abrir uma tarefa operacional da empresa
+title: "[EMPRESA] "
+labels: ["empresa"]
+body:
+  - type: textarea
+    id: contexto
+    attributes:
+      label: Contexto
+      description: Explique a tarefa
+      placeholder: Ex. Resolver pendência de documento, publicar campanha, ajustar automação
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área
+      options:
+        - Operacional
+        - Financeiro
+        - Marketing
+        - Automação
+        - Administrativo
+    validations:
+      required: true
+
+  - type: dropdown
+    id: prioridade
+    attributes:
+      label: Prioridade
+      options:
+        - Baixa
+        - Média
+        - Alta
+        - Urgente
+    validations:
+      required: true
+
+  - type: input
+    id: prazo
+    attributes:
+      label: Prazo
+      placeholder: Ex. 2026-04-12
+
+  - type: textarea
+    id: passos
+    attributes:
+      label: Próximos passos
+      placeholder: Liste o que precisa ser feito

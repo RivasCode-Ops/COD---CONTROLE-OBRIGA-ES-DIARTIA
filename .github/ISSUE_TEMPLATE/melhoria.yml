@@ -1,0 +1,34 @@
+name: Ideia ou melhoria
+description: Registrar uma ideia de melhoria, automação ou otimização
+title: "[MELHORIA] "
+labels: ["automacao"]
+body:
+  - type: textarea
+    id: ideia
+    attributes:
+      label: Ideia
+      description: Qual melhoria você quer registrar?
+      placeholder: Ex. Automatizar follow-up, integrar CRM com WhatsApp, criar dashboard
+    validations:
+      required: true
+
+  - type: textarea
+    id: beneficio
+    attributes:
+      label: Benefício esperado
+      placeholder: Ex. Reduzir retrabalho, ganhar tempo, melhorar atendimento
+
+  - type: dropdown
+    id: impacto
+    attributes:
+      label: Impacto
+      options:
+        - Baixo
+        - Médio
+        - Alto
+
+  - type: textarea
+    id: primeiros_passos
+    attributes:
+      label: Primeiros passos
+      placeholder: Ex. Pesquisar API, testar fluxo, criar protótipo
