@@ -18,14 +18,13 @@ jobs:
           github-token: ${{ secrets.PROJECT_AUTOMATION_TOKEN }}
           script: |
             const repoOwner = context.repo.owner;
-            const repoName = context.repo.repo;
             const projectNumber = 3;
             const etapaFieldName = "Etapa";
             const inboxOptionName = "Inbox";
             const issueNodeId = context.payload.issue.node_id;
 
             const q = `
-              query($owner:String!, $repo:String!, $number:Int!) {
+              query($owner:String!, $number:Int!) {
                 user(login:$owner) {
                   projectV2(number:$number) {
                     id
@@ -53,7 +52,6 @@ jobs:
 
             const data = await github.graphql(q, {
               owner: repoOwner,
-              repo: repoName,
               number: projectNumber,
             });
 
