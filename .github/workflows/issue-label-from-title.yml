@@ -1,0 +1,39 @@
+name: Labels a partir do título
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  issues: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const title = context.payload.issue.title;
+            const current = new Set(context.payload.issue.labels.map((l) => l.name));
+            const rules = [
+              [/^\s*\[PESSOAL\]/i, "pessoal"],
+              [/^\s*\[EMPRESA\]/i, "empresa"],
+              [/^\s*\[CLIENTE\]/i, "cliente"],
+              [/^\s*\[MELHORIA\]/i, "melhoria"],
+            ];
+            const toAdd = [];
+            for (const [pattern, name] of rules) {
+              if (pattern.test(title) && !current.has(name)) toAdd.push(name);
+            }
+            if (toAdd.length === 0) {
+              core.info("Nenhuma label nova a aplicar.");
+              return;
+            }
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              labels: toAdd,
+            });
+            core.info(`Labels aplicadas: ${toAdd.join(", ")}`);

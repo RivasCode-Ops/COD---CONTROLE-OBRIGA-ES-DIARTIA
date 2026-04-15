@@ -31,6 +31,36 @@ Crie estas labels para bater com os formulários e o fluxo:
 
 Os formulários aplicam a label principal; prioridade e área costumam ser ajustadas na Issue após abrir (veja a dica no final de cada formulário).
 
+## Utilidades e automação
+
+### Workflow no GitHub (sem configurar segredo)
+
+O arquivo [`.github/workflows/issue-label-from-title.yml`](.github/workflows/issue-label-from-title.yml) roda quando uma Issue é **aberta ou editada**: se o título começar com `[PESSOAL]`, `[EMPRESA]`, `[CLIENTE]` ou `[MELHORIA]` (como nos formulários), a label correspondente é aplicada **se ainda não estiver** na Issue. Útil para Issues criadas fora do formulário ou se faltar label. As labels precisam existir no repositório (use o script abaixo).
+
+**Atenção:** Actions precisam estar permitidas no repositório (**Settings → Actions → General**).
+
+### Scripts no seu computador (PowerShell)
+
+Requisito: [GitHub CLI](https://cli.github.com/) (`gh`) instalado e `gh auth login`.
+
+| Script | Função |
+| --- | --- |
+| [`scripts/setup-labels.ps1`](scripts/setup-labels.ps1) | Cria todas as labels da tabela no remoto de `origin` (ignora as que já existem). |
+| [`scripts/abrir-formularios-issues.ps1`](scripts/abrir-formularios-issues.ps1) | Abre o navegador em **Nova issue → escolher formulário**. |
+
+Exemplo (na pasta do clone):
+
+```powershell
+cd caminho\do\seu\clone\COD---CONTROLE-OBRIGA-ES-DIARTIA
+.\scripts\setup-labels.ps1
+.\scripts\abrir-formularios-issues.ps1
+```
+
+### O que ainda é manual (no GitHub)
+
+- Criar o **Project** e as colunas (Inbox, Planejado, …).
+- Opcional: regras de automação do Project (mover cartão ao fechar Issue, etc.), conforme a versão do Projects que você usar.
+
 ## Fluxo de uso
 
 1. Toda nova demanda vira uma Issue.
