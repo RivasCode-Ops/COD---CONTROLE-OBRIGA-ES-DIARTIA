@@ -13,7 +13,13 @@ A pasta [`docs/`](docs/) é uma **página estática** com visão geral, cartões
 .\scripts\abrir-docs-local.ps1
 ```
 
-Para publicar na web (opcional): no GitHub do repositório, **Settings → Pages → Build and deployment**, origem **Deploy from a branch**, branch **main** e pasta **`/docs`**. O endereço fica no formato `https://rivascode-ops.github.io/COD---CONTROLE-OBRIGA-ES-DIARTIA/` (ajuste se o nome da org ou do repo mudar).
+Para publicar na web, no repositório: **Settings → Pages → Build and deployment**.
+
+**Opção A — GitHub Actions (recomendado com Actions já autorizadas):** em **Source**, escolha **GitHub Actions**. O workflow [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) publica a pasta `docs/` a cada push em `main` que altere `docs/` (ou manualmente em **Actions → Publicar GitHub Pages → Run workflow**). O URL aparece no resumo do job e costuma ser `https://rivascode-ops.github.io/COD---CONTROLE-OBRIGA-ES-DIARTIA/`.
+
+**Opção B — Branch:** Source **Deploy from a branch**, branch **main**, pasta **`/docs`**. A primeira publicação pode levar alguns minutos.
+
+[![Pages](https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/actions/workflows/deploy-pages.yml)
 
 ## Estrutura
 
