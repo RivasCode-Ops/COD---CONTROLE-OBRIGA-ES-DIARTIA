@@ -11,20 +11,20 @@ jobs:
   apply:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - uses: actions/github-script@v7
         with:
           script: |
+            const fs = require("fs");
+            const cfg = JSON.parse(fs.readFileSync("config/parametros.json", "utf8"));
             const title = context.payload.issue.title;
             const current = new Set(context.payload.issue.labels.map((l) => l.name));
-            const rules = [
-              [/^\s*\[PESSOAL\]/i, "pessoal"],
-              [/^\s*\[EMPRESA\]/i, "empresa"],
-              [/^\s*\[CLIENTE\]/i, "cliente"],
-              [/^\s*\[MELHORIA\]/i, "melhoria"],
-            ];
+            const escape = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
             const toAdd = [];
-            for (const [pattern, name] of rules) {
-              if (pattern.test(title) && !current.has(name)) toAdd.push(name);
+            for (const m of cfg.mapeamentoTituloLabel) {
+              const re = new RegExp("^\\s*" + escape(m.prefixo), "i");
+              if (re.test(title) && !current.has(m.label)) toAdd.push(m.label);
             }
             if (toAdd.length === 0) {
               core.info("Nenhuma label nova a aplicar.");

@@ -11,23 +11,22 @@ As tarefas são abertas como Issues usando formulários prontos:
 - Atendimento ao cliente
 - Ideia ou melhoria
 
-## Labels (criar no repositório)
+## Parametrização (fonte única)
 
-Crie estas labels para bater com os formulários e o fluxo:
+Tudo o que era “sugestão fixa” de **labels**, **prefixos de título** (ligação ao workflow) e **nomes de colunas** do quadro está em [`config/parametros.json`](config/parametros.json):
 
-| Label | Uso |
+| Chave | Função |
 | --- | --- |
-| `pessoal` | Tarefas pessoais (formulário aplica automaticamente) |
-| `empresa` | Tarefas da empresa |
-| `cliente` | Atendimento / cliente |
-| `melhoria` | Ideias e melhorias |
-| `financeiro` | Demandas da área financeira |
-| `marketing` | Demandas de marketing |
-| `automacao` | Automação ou ideias técnicas de fluxo |
-| `urgente` | Prioridade máxima |
-| `alta-prioridade` | Alta prioridade |
-| `aguardando` | Bloqueado ou esperando retorno |
-| `rotina` | Tarefas recorrentes / manutenção |
+| `labels` | Lista de labels (`nome`, `cor` em hex **sem** `#`, `descricao`) — usada por `setup-labels.ps1`. |
+| `mapeamentoTituloLabel` | Para cada `prefixo` (ex. `[PESSOAL]`) e `label` correspondente — usada pelo workflow **Labels a partir do título**. |
+| `colunasQuadroSugeridas` | Referência para montar o GitHub Project (só documentação; o GitHub não lê este JSON automaticamente). |
+
+1. Edite `config/parametros.json` como quiser.
+2. Rode `.\scripts\validar-parametros.ps1` (opcional mas recomendado).
+3. Rode `.\scripts\setup-labels.ps1` para criar/atualizar labels no remoto (labels já existentes são ignoradas na criação; para **mudar cor/descrição** use a UI do GitHub ou `gh label edit`).
+4. Faça **commit e push** do JSON para o Actions aplicar o novo mapeamento de títulos.
+
+**Formulários de Issue** (`.github/ISSUE_TEMPLATE/*.yml`): continuam em YAML — se mudar `prefixo` ou o nome da label principal de um tipo de tarefa, ajuste manualmente o `title:` e `labels:` nesses ficheiros para bater com `parametros.json`.
 
 Os formulários aplicam a label principal; prioridade e área costumam ser ajustadas na Issue após abrir (veja a dica no final de cada formulário).
 
@@ -35,7 +34,7 @@ Os formulários aplicam a label principal; prioridade e área costumam ser ajust
 
 ### Workflow no GitHub (sem configurar segredo)
 
-O arquivo [`.github/workflows/issue-label-from-title.yml`](.github/workflows/issue-label-from-title.yml) roda quando uma Issue é **aberta ou editada**: se o título começar com `[PESSOAL]`, `[EMPRESA]`, `[CLIENTE]` ou `[MELHORIA]` (como nos formulários), a label correspondente é aplicada **se ainda não estiver** na Issue. Útil para Issues criadas fora do formulário ou se faltar label. As labels precisam existir no repositório (use o script abaixo).
+O arquivo [`.github/workflows/issue-label-from-title.yml`](.github/workflows/issue-label-from-title.yml) roda quando uma Issue é **aberta ou editada**: lê `config/parametros.json` e, se o título começar com um dos `prefixo` definidos em `mapeamentoTituloLabel`, aplica a `label` correspondente **se ainda não estiver** na Issue. Útil para Issues criadas fora do formulário ou se faltar label. As labels precisam existir no repositório (use o script abaixo).
 
 **Atenção:** Actions precisam estar permitidas no repositório (**Settings → Actions → General**).
 
@@ -45,20 +44,22 @@ Requisito: [GitHub CLI](https://cli.github.com/) (`gh`) instalado e `gh auth log
 
 | Script | Função |
 | --- | --- |
-| [`scripts/setup-labels.ps1`](scripts/setup-labels.ps1) | Cria todas as labels da tabela no remoto de `origin` (ignora as que já existem). |
+| [`scripts/validar-parametros.ps1`](scripts/validar-parametros.ps1) | Valida o JSON e se cada `label` do mapeamento existe em `labels`. |
+| [`scripts/setup-labels.ps1`](scripts/setup-labels.ps1) | Cria no remoto `origin` todas as entradas de `labels` em `parametros.json` (ignora as que já existem). |
 | [`scripts/abrir-formularios-issues.ps1`](scripts/abrir-formularios-issues.ps1) | Abre o navegador em **Nova issue → escolher formulário**. |
 
 Exemplo (na pasta do clone):
 
 ```powershell
 cd caminho\do\seu\clone\COD---CONTROLE-OBRIGA-ES-DIARTIA
+.\scripts\validar-parametros.ps1
 .\scripts\setup-labels.ps1
 .\scripts\abrir-formularios-issues.ps1
 ```
 
 ### O que ainda é manual (no GitHub)
 
-- Criar o **Project** e as colunas (Inbox, Planejado, …).
+- Criar o **Project** e as colunas (use como guia a lista `colunasQuadroSugeridas` em `parametros.json`).
 - Opcional: regras de automação do Project (mover cartão ao fechar Issue, etc.), conforme a versão do Projects que você usar.
 
 ## Fluxo de uso
@@ -66,12 +67,7 @@ cd caminho\do\seu\clone\COD---CONTROLE-OBRIGA-ES-DIARTIA
 1. Toda nova demanda vira uma Issue.
 2. A Issue recebe label e prioridade.
 3. A tarefa entra no GitHub Project.
-4. O quadro deve ter estas colunas:
-   - Inbox
-   - Planejado
-   - Em andamento
-   - Aguardando
-   - Concluído
+4. O quadro deve ter colunas alinhadas a `colunasQuadroSugeridas` em [`config/parametros.json`](config/parametros.json) (editável).
 5. Ao finalizar, fechar a Issue.
 
 ## Regra prática

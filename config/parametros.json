@@ -1,0 +1,28 @@
+{
+  "mapeamentoTituloLabel": [
+    { "prefixo": "[PESSOAL]", "label": "pessoal" },
+    { "prefixo": "[EMPRESA]", "label": "empresa" },
+    { "prefixo": "[CLIENTE]", "label": "cliente" },
+    { "prefixo": "[MELHORIA]", "label": "melhoria" }
+  ],
+  "labels": [
+    { "nome": "pessoal", "cor": "0E8A16", "descricao": "Tarefa pessoal" },
+    { "nome": "empresa", "cor": "1D76DB", "descricao": "Tarefa da empresa" },
+    { "nome": "cliente", "cor": "B60205", "descricao": "Atendimento / cliente" },
+    { "nome": "melhoria", "cor": "5319E7", "descricao": "Ideia ou melhoria" },
+    { "nome": "financeiro", "cor": "FBCA04", "descricao": "Área financeira" },
+    { "nome": "marketing", "cor": "D93F0B", "descricao": "Marketing" },
+    { "nome": "automacao", "cor": "006B75", "descricao": "Automação / ferramentas" },
+    { "nome": "urgente", "cor": "B60205", "descricao": "Prioridade máxima" },
+    { "nome": "alta-prioridade", "cor": "F9D0C4", "descricao": "Alta prioridade" },
+    { "nome": "aguardando", "cor": "FEF2C0", "descricao": "Bloqueado / esperando" },
+    { "nome": "rotina", "cor": "C2E0C6", "descricao": "Recorrente / manutenção" }
+  ],
+  "colunasQuadroSugeridas": [
+    "Inbox",
+    "Planejado",
+    "Em andamento",
+    "Aguardando",
+    "Concluído"
+  ]
+}

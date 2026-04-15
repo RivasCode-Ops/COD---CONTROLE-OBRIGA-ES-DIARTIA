@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Cria no GitHub as labels usadas pelo COD (idempotente: ignora se já existir).
+  Cria no GitHub as labels definidas em config/parametros.json (idempotente).
 .REQUIRES
   GitHub CLI (gh) instalado e autenticado: https://cli.github.com/
 #>
@@ -22,34 +22,28 @@ function Test-Gh {
 }
 
 Test-Gh
+$repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
+$configPath = Join-Path $repoRoot "config\parametros.json"
+if (-not (Test-Path $configPath)) { throw "Falta o ficheiro de configuração: $configPath" }
+
+& (Join-Path $PSScriptRoot "validar-parametros.ps1")
+
+$p = Get-Content $configPath -Raw -Encoding UTF8 | ConvertFrom-Json
 $r = Get-RepoFromGit
 $repo = "$($r.Owner)/$($r.Repo)"
 
-$labels = @(
-  @{ Name = "pessoal"; Color = "0E8A16"; Desc = "Tarefa pessoal" },
-  @{ Name = "empresa"; Color = "1D76DB"; Desc = "Tarefa da empresa" },
-  @{ Name = "cliente"; Color = "B60205"; Desc = "Atendimento / cliente" },
-  @{ Name = "melhoria"; Color = "5319E7"; Desc = "Ideia ou melhoria" },
-  @{ Name = "financeiro"; Color = "FBCA04"; Desc = "Área financeira" },
-  @{ Name = "marketing"; Color = "D93F0B"; Desc = "Marketing" },
-  @{ Name = "automacao"; Color = "006B75"; Desc = "Automação / ferramentas" },
-  @{ Name = "urgente"; Color = "B60205"; Desc = "Prioridade máxima" },
-  @{ Name = "alta-prioridade"; Color = "F9D0C4"; Desc = "Alta prioridade" },
-  @{ Name = "aguardando"; Color = "FEF2C0"; Desc = "Bloqueado / esperando" },
-  @{ Name = "rotina"; Color = "C2E0C6"; Desc = "Recorrente / manutenção" }
-)
-
 Write-Host "Repositório: $repo" -ForegroundColor Cyan
-foreach ($l in $labels) {
-  $err = gh label create $l.Name --repo $repo --color $l.Color --description $l.Desc 2>&1
+Write-Host "Origem das labels: $configPath" -ForegroundColor DarkGray
+foreach ($l in $p.labels) {
+  $err = gh label create $l.nome --repo $repo --color $l.cor --description $l.descricao 2>&1
   if ($LASTEXITCODE -eq 0) {
-    Write-Host "  criada: $($l.Name)" -ForegroundColor Green
+    Write-Host "  criada: $($l.nome)" -ForegroundColor Green
   }
   elseif ("$err" -match "already been taken|name has already") {
-    Write-Host "  já existe: $($l.Name)" -ForegroundColor DarkGray
+    Write-Host "  já existe: $($l.nome)" -ForegroundColor DarkGray
   }
   else {
-    Write-Warning "  $($l.Name): $err"
+    Write-Warning "  $($l.nome): $err"
   }
 }
 Write-Host "Concluído." -ForegroundColor Cyan
