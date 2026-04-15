@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Rivaldo Organização — gestão de tarefas com GitHub Issues e Projects."
+    />
+    <title>COD · Rivaldo Organização</title>
+    <link rel="stylesheet" href="css/site.css" />
+  </head>
+  <body>
+    <a class="skip" href="#conteudo">Ir ao conteúdo</a>
+
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true">C</span>
+          <span>COD · Rivaldo Organização</span>
+        </a>
+        <nav class="nav-actions" aria-label="Atalhos">
+          <a
+            class="btn btn-primary"
+            href="https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/issues/new/choose"
+            >Nova tarefa</a
+          >
+          <a
+            class="btn btn-ghost"
+            href="https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/issues"
+            >Issues</a
+          >
+          <a
+            class="btn btn-ghost"
+            href="https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA"
+            >Repositório</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <div class="hero">
+        <div class="wrap">
+          <h1>Tarefas pessoais e da empresa, num só lugar.</h1>
+          <p class="lead">
+            Sistema leve baseado em
+            <strong>GitHub Issues</strong> e <strong>Projects</strong>: formulários
+            prontos, labels parametrizáveis e automação quando o título indica o tipo
+            de demanda.
+          </p>
+          <div class="hero-cta">
+            <a
+              class="btn btn-primary"
+              href="https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/issues/new/choose"
+              >Abrir formulários</a
+            >
+            <a
+              class="btn btn-ghost"
+              href="https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/blob/main/config/parametros.json"
+              >Ver parametros.json</a
+            >
+          </div>
+          <div class="pill-row" aria-label="Destaques">
+            <span class="pill">Issues + Project</span>
+            <span class="pill">config/parametros.json</span>
+            <span class="pill">Actions</span>
+            <span class="pill">PowerShell</span>
+          </div>
+        </div>
+      </div>
+
+      <section aria-labelledby="tipos">
+        <div class="wrap">
+          <h2 id="tipos">Tipos de tarefa</h2>
+          <div class="grid-cards">
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">🏠</div>
+              <h3>Tarefa pessoal</h3>
+              <p>Prefixo <code>[PESSOAL]</code> e label <code>pessoal</code>.</p>
+            </article>
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">🏢</div>
+              <h3>Tarefa da empresa</h3>
+              <p>Prefixo <code>[EMPRESA]</code> e label <code>empresa</code>.</p>
+            </article>
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">🤝</div>
+              <h3>Atendimento ao cliente</h3>
+              <p>Prefixo <code>[CLIENTE]</code> e label <code>cliente</code>.</p>
+            </article>
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">💡</div>
+              <h3>Ideia ou melhoria</h3>
+              <p>Prefixo <code>[MELHORIA]</code> e label <code>melhoria</code>.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="fluxo">
+        <div class="wrap">
+          <h2 id="fluxo">Fluxo de uso</h2>
+          <ol class="flow">
+            <li>
+              <strong>Nova demanda</strong>
+              <span>Abre uma Issue (idealmente pelo formulário).</span>
+            </li>
+            <li>
+              <strong>Labels e prioridade</strong>
+              <span>Ajusta labels; o workflow pode aplicar a principal pelo título.</span>
+            </li>
+            <li>
+              <strong>Project</strong>
+              <span>Coloca o cartão no quadro (ex.: Inbox → Em andamento).</span>
+            </li>
+            <li>
+              <strong>Colunas sugeridas</strong>
+              <span>Inbox, Planejado, Em andamento, Aguardando, Concluído (editáveis no JSON).</span>
+            </li>
+            <li>
+              <strong>Fechar</strong>
+              <span>Ao concluir, fecha a Issue e atualiza o board.</span>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section aria-labelledby="dev">
+        <div class="wrap">
+          <h2 id="dev">Desenvolver e manter</h2>
+          <p style="margin: 0; color: var(--muted); max-width: 65ch">
+            A aparência desta página fica em <code>docs/</code>. O comportamento do sistema
+            (labels, mapeamento título → label, colunas sugeridas) está em
+            <a
+              href="https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/blob/main/config/parametros.json"
+              ><code>config/parametros.json</code></a
+            >. No clone, rode validação e scripts conforme o README do repositório.
+            <a
+              href="https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/blob/main/PROCESSO.md"
+              >Checklist por fases (PROCESSO.md)</a
+            >.
+          </p>
+          <pre class="code-block" tabindex="0"><code>cd COD---CONTROLE-OBRIGA-ES-DIARTIA
+.\scripts\inicio-rapido.ps1
+# ou passo a passo:
+.\scripts\validar-parametros.ps1
+.\scripts\verificar-formularios-issues.ps1
+.\scripts\setup-labels.ps1   # requer GitHub CLI (gh)</code></pre>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p style="margin: 0">
+          <a href="https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/blob/main/README.md"
+            >README</a
+          >
+          ·
+          <a href="https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/blob/main/PROCESSO.md"
+            >PROCESSO</a
+          >
+          · Conteúdo em português · Página estática em <code>docs/</code>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
