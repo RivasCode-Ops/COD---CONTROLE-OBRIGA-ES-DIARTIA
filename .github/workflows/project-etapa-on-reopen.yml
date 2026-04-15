@@ -21,6 +21,8 @@ jobs:
             const projectNumber = 3;
             const etapaFieldName = "Etapa";
             const inboxOptionName = "Inbox";
+            const statusFieldName = "Status";
+            const statusTodoOptionName = "Todo";
             const issueNodeId = context.payload.issue.node_id;
 
             const q = `
@@ -73,6 +75,9 @@ jobs:
               return;
             }
 
+            const statusField = project.fields.nodes.find((f) => f?.name === statusFieldName);
+            const statusTodo = statusField?.options?.find((o) => o.name === statusTodoOptionName);
+
             let item = project.items.nodes.find((n) => n?.content?.id === issueNodeId);
             if (!item) {
               const add = await github.graphql(
@@ -113,5 +118,32 @@ jobs:
                 optionId: inboxOption.id,
               }
             );
+
+            if (statusField && statusTodo) {
+              await github.graphql(
+                `
+                  mutation($projectId:ID!, $itemId:ID!, $fieldId:ID!, $optionId:String!) {
+                    updateProjectV2ItemFieldValue(
+                      input: {
+                        projectId: $projectId
+                        itemId: $itemId
+                        fieldId: $fieldId
+                        value: { singleSelectOptionId: $optionId }
+                      }
+                    ) {
+                      projectV2Item { id }
+                    }
+                  }
+                `,
+                {
+                  projectId: project.id,
+                  itemId: item.id,
+                  fieldId: statusField.id,
+                  optionId: statusTodo.id,
+                }
+              );
+            } else {
+              core.warning("Campo Status/Todo não encontrado; mantendo Status atual.");
+            }
 
             core.info(`Issue #${context.payload.issue.number}: Etapa -> ${inboxOptionName}`);
