@@ -72,6 +72,8 @@ O arquivo [`.github/workflows/issue-label-from-title.yml`](.github/workflows/iss
 
 O workflow [`.github/workflows/validar-parametros.yml`](.github/workflows/validar-parametros.yml) corre em **push/PR** quando mudam `parametros.json`, formulários, estes workflows ou os scripts de validação, e falha o CI se o JSON estiver inconsistente.
 
+O workflow [`.github/workflows/project-etapa-on-close.yml`](.github/workflows/project-etapa-on-close.yml) roda quando uma issue é **fechada** e atualiza o campo **`Etapa`** do Project `COD - Operacao` para **`Concluído`**.
+
 ### Scripts no seu computador (PowerShell)
 
 Requisito: [GitHub CLI](https://cli.github.com/) (`gh`) instalado e `gh auth login`.
