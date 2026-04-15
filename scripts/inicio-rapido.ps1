@@ -13,6 +13,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 $here = $PSScriptRoot
+. (Join-Path $here "bootstrap-gh-path.ps1")
 
 Write-Host "=== COD - inicio rapido ===" -ForegroundColor Cyan
 & (Join-Path $here "validar-parametros.ps1")

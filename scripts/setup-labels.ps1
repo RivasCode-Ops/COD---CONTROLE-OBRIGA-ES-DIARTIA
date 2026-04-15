@@ -6,6 +6,8 @@
 #>
 $ErrorActionPreference = "Stop"
 
+. (Join-Path $PSScriptRoot "bootstrap-gh-path.ps1")
+
 function Get-RepoFromGit {
   $url = git remote get-url origin 2>$null
   if (-not $url) { throw "Defina o remote 'origin' ou rode dentro do clone do repositório." }
@@ -17,7 +19,7 @@ function Get-RepoFromGit {
 
 function Test-Gh {
   if (-not (Get-Command gh -ErrorAction SilentlyContinue)) {
-    throw "Instale o GitHub CLI (gh) e faça login: gh auth login"
+    throw "GitHub CLI (gh) nao encontrado. Instale de https://cli.github.com/ ou use o instalador em %LOCALAPPDATA%\Programs\gh . Depois: gh auth login"
   }
 }
 
