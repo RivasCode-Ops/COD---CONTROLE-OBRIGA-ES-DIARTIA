@@ -1,0 +1,49 @@
+# Cria labels no repo a partir de config/parametros.json (nao precisa do gh no PC).
+name: Sincronizar labels (parametros.json)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "config/parametros.json"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+            const p = JSON.parse(fs.readFileSync("config/parametros.json", "utf8"));
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            for (const l of p.labels) {
+              const desc = (l.descricao || "").toString().slice(0, 100);
+              try {
+                await github.rest.issues.createLabel({
+                  owner,
+                  repo,
+                  name: l.nome,
+                  color: l.cor.replace(/^#/, ""),
+                  description: desc,
+                });
+                core.info(`criada: ${l.nome}`);
+              } catch (e) {
+                const st = e.status ?? e.response?.status;
+                const msg = String(e.message || "");
+                if (st === 422 || msg.includes("already exists") || msg.includes("Validation Failed")) {
+                  core.info(`ja existe: ${l.nome}`);
+                } else {
+                  core.warning(`${l.nome}: ${msg}`);
+                }
+              }
+            }
+            core.info("Concluido.");

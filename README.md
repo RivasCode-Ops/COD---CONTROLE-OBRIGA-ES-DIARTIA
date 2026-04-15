@@ -55,7 +55,7 @@ Tudo o que era “sugestão fixa” de **labels**, **prefixos de título** (liga
 
 1. Edite `config/parametros.json` como quiser.
 2. Rode `.\scripts\validar-parametros.ps1` (opcional mas recomendado) e `.\scripts\verificar-formularios-issues.ps1` para cruzar com os YAML dos formulários.
-3. Rode `.\scripts\setup-labels.ps1` para criar/atualizar labels no remoto (labels já existentes são ignoradas na criação; para **mudar cor/descrição** use a UI do GitHub ou `gh label edit`).
+3. Rode `.\scripts\setup-labels.ps1` para criar/atualizar labels no remoto (labels já existentes são ignoradas na criação; para **mudar cor/descrição** use a UI do GitHub ou `gh label edit`). **Alternativa sem `gh` no PC:** em **Actions → Sincronizar labels (parametros.json) → Run workflow** — usa o `GITHUB_TOKEN` e lê o mesmo JSON.
 4. Faça **commit e push** do JSON para o Actions aplicar o novo mapeamento de títulos.
 
 **Formulários de Issue** (`.github/ISSUE_TEMPLATE/*.yml`): continuam em YAML — se mudar `prefixo` ou o nome da label principal de um tipo de tarefa, ajuste manualmente o `title:` e `labels:` nesses ficheiros para bater com `parametros.json`.

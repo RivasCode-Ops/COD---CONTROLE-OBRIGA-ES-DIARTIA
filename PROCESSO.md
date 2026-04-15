@@ -20,8 +20,11 @@ Na raiz do clone (PowerShell):
 
 ## Fase 3 — Labels no GitHub
 
-- [ ] [GitHub CLI](https://cli.github.com/) instalado: `gh auth login`.
-- [ ] `.\scripts\setup-labels.ps1` executado (cria labels em `origin` conforme o JSON).
+**Opção A (PC):** [GitHub CLI](https://cli.github.com/) com `gh auth login` e `.\scripts\setup-labels.ps1`.
+
+**Opção B (sem gh):** no GitHub, **Actions → Sincronizar labels (parametros.json) → Run workflow** — cria as labels a partir de `config/parametros.json`.
+
+- [ ] Labels criadas (script local **ou** workflow acima).
 
 ## Fase 4 — GitHub Project (manual no site)
 
