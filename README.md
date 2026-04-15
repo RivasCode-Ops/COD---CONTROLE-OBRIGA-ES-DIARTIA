@@ -5,6 +5,8 @@
 
 Sistema simples de gestão de tarefas pessoais e da empresa usando [GitHub Issues](https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/issues) + GitHub Projects.
 
+**Continuar o processo (checklist por fases):** veja [`PROCESSO.md`](PROCESSO.md). Para validar e, se tiver `gh`, criar labels num comando: `.\scripts\inicio-rapido.ps1` (use `-AbrirFormularios` para abrir os formulários no browser).
+
 ## Site (aparência)
 
 A pasta [`docs/`](docs/) é uma **página estática** com visão geral, cartões por tipo de tarefa e atalhos. Para ver no PC, após clonar:
@@ -81,6 +83,7 @@ Requisito: [GitHub CLI](https://cli.github.com/) (`gh`) instalado e `gh auth log
 | [`scripts/setup-labels.ps1`](scripts/setup-labels.ps1) | Cria no remoto `origin` todas as entradas de `labels` em `parametros.json` (ignora as que já existem). |
 | [`scripts/abrir-formularios-issues.ps1`](scripts/abrir-formularios-issues.ps1) | Abre o navegador em **Nova issue → escolher formulário**. |
 | [`scripts/abrir-docs-local.ps1`](scripts/abrir-docs-local.ps1) | Abre `docs/index.html` no navegador (pré-visualização do site). |
+| [`scripts/inicio-rapido.ps1`](scripts/inicio-rapido.ps1) | Corre validação + verificação de formulários + `setup-labels` se `gh` existir; parâmetros `-SemLabels`, `-AbrirFormularios`. |
 
 Exemplo (na pasta do clone):
 
@@ -91,6 +94,9 @@ cd caminho\do\seu\clone\COD---CONTROLE-OBRIGA-ES-DIARTIA
 .\scripts\setup-labels.ps1
 .\scripts\abrir-formularios-issues.ps1
 .\scripts\abrir-docs-local.ps1
+# ou, em alternativa, um único passo:
+.\scripts\inicio-rapido.ps1
+.\scripts\inicio-rapido.ps1 -AbrirFormularios
 ```
 
 ### O que ainda é manual (no GitHub)
