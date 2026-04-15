@@ -35,3 +35,8 @@ body:
     attributes:
       label: Próximos passos
       placeholder: Liste os passos, um por linha
+
+  - type: markdown
+    attributes:
+      value: |
+        **Labels:** mantenha `pessoal`. Se a prioridade for **Alta** ou **Urgente**, adicione também `alta-prioridade` ou `urgente`. Coloque o cartão em **Inbox** no Project.

@@ -43,3 +43,8 @@ body:
     attributes:
       label: Próxima ação
       placeholder: Ex. Enviar mensagem, ligar, pedir documento, atualizar processo
+
+  - type: markdown
+    attributes:
+      value: |
+        **Labels:** mantenha `cliente`. Se precisar esperar terceiros, use `aguardando`. Para **Alta**/**Urgente**, adicione `alta-prioridade` ou `urgente`. Cartão em **Inbox** no Project.

@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Dúvida geral
-    url: https://github.com/SEU-USUARIO/rivaldo-organizacao/discussions
-    about: Use este espaço para dúvidas gerais e conversas.
+  - name: Discussões e dúvidas gerais
+    url: https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/discussions
+    about: Dúvidas sobre o fluxo, sugestões de processo e conversas gerais (ative Discussions no repositório se o link não abrir).

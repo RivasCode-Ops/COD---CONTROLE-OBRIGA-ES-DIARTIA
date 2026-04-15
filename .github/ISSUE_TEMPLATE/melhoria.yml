@@ -1,7 +1,7 @@
 name: Ideia ou melhoria
 description: Registrar uma ideia de melhoria, automação ou otimização
 title: "[MELHORIA] "
-labels: ["automacao"]
+labels: ["melhoria"]
 body:
   - type: textarea
     id: ideia
@@ -32,3 +32,8 @@ body:
     attributes:
       label: Primeiros passos
       placeholder: Ex. Pesquisar API, testar fluxo, criar protótipo
+
+  - type: markdown
+    attributes:
+      value: |
+        **Labels:** mantenha `melhoria`. Se for automação ou ferramenta, adicione `automacao`. Cartão em **Inbox** no Project.

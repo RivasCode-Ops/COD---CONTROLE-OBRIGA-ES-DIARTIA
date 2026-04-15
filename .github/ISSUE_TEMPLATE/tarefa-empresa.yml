@@ -48,3 +48,8 @@ body:
     attributes:
       label: Próximos passos
       placeholder: Liste o que precisa ser feito
+
+  - type: markdown
+    attributes:
+      value: |
+        **Labels:** mantenha `empresa`. Conforme a **Área**, adicione `financeiro`, `marketing`, `automacao` ou deixe só operacional/administrativo na descrição. Para **Alta**/**Urgente**, use `alta-prioridade` ou `urgente`. Cartão em **Inbox** no Project.
