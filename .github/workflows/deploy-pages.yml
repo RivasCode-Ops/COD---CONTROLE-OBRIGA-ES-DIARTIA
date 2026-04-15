@@ -1,3 +1,4 @@
+# Requer: Settings → Pages → Source = "GitHub Actions" (não use ao mesmo tempo que "Deploy from branch").
 name: Publicar GitHub Pages
 
 on:

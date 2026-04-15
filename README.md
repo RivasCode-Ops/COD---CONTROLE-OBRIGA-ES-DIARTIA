@@ -21,6 +21,15 @@ Para publicar na web, no repositório: **Settings → Pages → Build and deploy
 
 [![Pages](https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/actions/workflows/deploy-pages.yml)
 
+### Se o site der **404**
+
+1. **Copie o URL que o próprio GitHub mostra** em **Settings → Pages** (área *Your site is live at* / *Visit site*). Não adivinhe o endereço; org/repo com maiúsculas/minúsculas usam sempre `https://<org em minúsculas>.github.io/<nome-do-repo>/`.
+2. **Opção A (Actions):** em Pages, **Source** tem de ser **GitHub Actions** (não “Deploy from a branch”). Só depois disso o job **Publicar GitHub Pages** consegue publicar. Em **Actions**, abra o último run: se estiver vermelho, leia o erro (muito comum: fonte ainda em *branch*).
+3. **Opção B (branch):** Source **Deploy from a branch** → branch **main** → pasta **`/docs`** (não use `/(root)` se o `index.html` estiver dentro de `docs/`).
+4. **Repositório privado:** em contas/planos gratuitos o Pages **público** a partir de repo privado pode estar indisponível ou exigir plano pago; nesse caso o browser mostra **404** para quem não tem acesso. Torne o repositório **público** ou confirme na documentação atual da GitHub o que o teu plano permite.
+5. **Primeiro deploy com Actions:** em **Settings → Environments → `github-pages`**, veja se há **Deployment protection** a pedir aprovação manual no primeiro run.
+6. Foi adicionado `docs/.nojekyll` para o GitHub **não tratar o site como Jekyll** (evita 404 por ficheiros ignorados).
+
 ## Estrutura
 
 As tarefas são abertas como Issues usando formulários prontos:
