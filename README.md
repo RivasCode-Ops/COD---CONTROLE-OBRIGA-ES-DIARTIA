@@ -1,6 +1,19 @@
 # Rivaldo Organização
 
+[![Validar parametros](https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/actions/workflows/validar-parametros.yml/badge.svg)](https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/actions/workflows/validar-parametros.yml)
+[![Issues](https://img.shields.io/github/issues/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA?color=0d9488)](https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/issues)
+
 Sistema simples de gestão de tarefas pessoais e da empresa usando [GitHub Issues](https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/issues) + GitHub Projects.
+
+## Site (aparência)
+
+A pasta [`docs/`](docs/) é uma **página estática** com visão geral, cartões por tipo de tarefa e atalhos. Para ver no PC, após clonar:
+
+```powershell
+.\scripts\abrir-docs-local.ps1
+```
+
+Para publicar na web (opcional): no GitHub do repositório, **Settings → Pages → Build and deployment**, origem **Deploy from a branch**, branch **main** e pasta **`/docs`**. O endereço fica no formato `https://rivascode-ops.github.io/COD---CONTROLE-OBRIGA-ES-DIARTIA/` (ajuste se o nome da org ou do repo mudar).
 
 ## Estrutura
 
@@ -50,6 +63,7 @@ Requisito: [GitHub CLI](https://cli.github.com/) (`gh`) instalado e `gh auth log
 | [`scripts/verificar-formularios-issues.ps1`](scripts/verificar-formularios-issues.ps1) | Garante que cada formulário em `ISSUE_TEMPLATE` tem `title`/`labels` alinhados ao mapeamento (e que não há prefixo órfão). |
 | [`scripts/setup-labels.ps1`](scripts/setup-labels.ps1) | Cria no remoto `origin` todas as entradas de `labels` em `parametros.json` (ignora as que já existem). |
 | [`scripts/abrir-formularios-issues.ps1`](scripts/abrir-formularios-issues.ps1) | Abre o navegador em **Nova issue → escolher formulário**. |
+| [`scripts/abrir-docs-local.ps1`](scripts/abrir-docs-local.ps1) | Abre `docs/index.html` no navegador (pré-visualização do site). |
 
 Exemplo (na pasta do clone):
 
@@ -59,6 +73,7 @@ cd caminho\do\seu\clone\COD---CONTROLE-OBRIGA-ES-DIARTIA
 .\scripts\verificar-formularios-issues.ps1
 .\scripts\setup-labels.ps1
 .\scripts\abrir-formularios-issues.ps1
+.\scripts\abrir-docs-local.ps1
 ```
 
 ### O que ainda é manual (no GitHub)
