@@ -22,7 +22,7 @@ Tudo o que era “sugestão fixa” de **labels**, **prefixos de título** (liga
 | `colunasQuadroSugeridas` | Referência para montar o GitHub Project (só documentação; o GitHub não lê este JSON automaticamente). |
 
 1. Edite `config/parametros.json` como quiser.
-2. Rode `.\scripts\validar-parametros.ps1` (opcional mas recomendado).
+2. Rode `.\scripts\validar-parametros.ps1` (opcional mas recomendado) e `.\scripts\verificar-formularios-issues.ps1` para cruzar com os YAML dos formulários.
 3. Rode `.\scripts\setup-labels.ps1` para criar/atualizar labels no remoto (labels já existentes são ignoradas na criação; para **mudar cor/descrição** use a UI do GitHub ou `gh label edit`).
 4. Faça **commit e push** do JSON para o Actions aplicar o novo mapeamento de títulos.
 
@@ -38,6 +38,8 @@ O arquivo [`.github/workflows/issue-label-from-title.yml`](.github/workflows/iss
 
 **Atenção:** Actions precisam estar permitidas no repositório (**Settings → Actions → General**).
 
+O workflow [`.github/workflows/validar-parametros.yml`](.github/workflows/validar-parametros.yml) corre em **push/PR** quando mudam `parametros.json`, formulários, estes workflows ou os scripts de validação, e falha o CI se o JSON estiver inconsistente.
+
 ### Scripts no seu computador (PowerShell)
 
 Requisito: [GitHub CLI](https://cli.github.com/) (`gh`) instalado e `gh auth login`.
@@ -45,6 +47,7 @@ Requisito: [GitHub CLI](https://cli.github.com/) (`gh`) instalado e `gh auth log
 | Script | Função |
 | --- | --- |
 | [`scripts/validar-parametros.ps1`](scripts/validar-parametros.ps1) | Valida o JSON e se cada `label` do mapeamento existe em `labels`. |
+| [`scripts/verificar-formularios-issues.ps1`](scripts/verificar-formularios-issues.ps1) | Garante que cada formulário em `ISSUE_TEMPLATE` tem `title`/`labels` alinhados ao mapeamento (e que não há prefixo órfão). |
 | [`scripts/setup-labels.ps1`](scripts/setup-labels.ps1) | Cria no remoto `origin` todas as entradas de `labels` em `parametros.json` (ignora as que já existem). |
 | [`scripts/abrir-formularios-issues.ps1`](scripts/abrir-formularios-issues.ps1) | Abre o navegador em **Nova issue → escolher formulário**. |
 
@@ -53,6 +56,7 @@ Exemplo (na pasta do clone):
 ```powershell
 cd caminho\do\seu\clone\COD---CONTROLE-OBRIGA-ES-DIARTIA
 .\scripts\validar-parametros.ps1
+.\scripts\verificar-formularios-issues.ps1
 .\scripts\setup-labels.ps1
 .\scripts\abrir-formularios-issues.ps1
 ```

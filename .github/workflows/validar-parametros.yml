@@ -1,0 +1,80 @@
+name: Validar parametros.json
+
+on:
+  push:
+    paths:
+      - "config/parametros.json"
+      - ".github/workflows/validar-parametros.yml"
+      - ".github/workflows/issue-label-from-title.yml"
+      - ".github/ISSUE_TEMPLATE/**"
+      - "scripts/validar-parametros.ps1"
+      - "scripts/setup-labels.ps1"
+      - "scripts/verificar-formularios-issues.ps1"
+  pull_request:
+    paths:
+      - "config/parametros.json"
+      - ".github/workflows/**"
+      - ".github/ISSUE_TEMPLATE/**"
+      - "scripts/validar-parametros.ps1"
+      - "scripts/setup-labels.ps1"
+      - "scripts/verificar-formularios-issues.ps1"
+
+jobs:
+  json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Estrutura e referências
+        run: |
+          node <<'NODE'
+          const fs = require("fs");
+          const path = "config/parametros.json";
+          if (!fs.existsSync(path)) {
+            console.error("Falta:", path);
+            process.exit(1);
+          }
+          const p = JSON.parse(fs.readFileSync(path, "utf8"));
+          for (const k of ["labels", "mapeamentoTituloLabel", "colunasQuadroSugeridas"]) {
+            if (!Array.isArray(p[k]) || p[k].length === 0) {
+              console.error("Array obrigatório vazio ou ausente:", k);
+              process.exit(1);
+            }
+          }
+          const nomes = new Set();
+          for (const l of p.labels) {
+            if (!l.nome || !l.cor || !l.descricao) {
+              console.error("Cada label precisa de nome, cor e descricao:", l);
+              process.exit(1);
+            }
+            if (nomes.has(l.nome)) {
+              console.error("Label duplicada:", l.nome);
+              process.exit(1);
+            }
+            nomes.add(l.nome);
+            if (/[^0-9A-Fa-f]/.test(l.cor) || l.cor.length < 3) {
+              console.error("cor deve ser hex sem # (ex. 0E8A16):", l.nome, l.cor);
+              process.exit(1);
+            }
+          }
+          for (const m of p.mapeamentoTituloLabel) {
+            if (!m.prefixo || !m.label) {
+              console.error("Mapeamento inválido:", m);
+              process.exit(1);
+            }
+            if (!nomes.has(m.label)) {
+              console.error("Label inexistente no mapeamento:", m.label, "prefixo", m.prefixo);
+              process.exit(1);
+            }
+          }
+          console.log("OK: parametros.json");
+          NODE
+
+  formularios:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Formulários alinhados ao JSON
+        shell: pwsh
+        run: ./scripts/verificar-formularios-issues.ps1
