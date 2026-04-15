@@ -16,15 +16,16 @@ jobs:
       - uses: actions/github-script@v7
         with:
           script: |
-            const projectOwner = "RivasCode-Ops";
+            const repoOwner = context.repo.owner;
+            const repoName = context.repo.repo;
             const projectNumber = 3;
             const etapaFieldName = "Etapa";
             const doneOptionName = "Concluído";
             const issueNodeId = context.payload.issue.node_id;
 
             const q = `
-              query($owner:String!, $number:Int!) {
-                user(login:$owner) {
+              query($owner:String!, $repo:String!, $number:Int!) {
+                repository(owner:$owner, name:$repo) {
                   projectV2(number:$number) {
                     id
                     fields(first:100) {
@@ -45,18 +46,18 @@ jobs:
                       }
                     }
                   }
-                }
               }
             `;
 
             const data = await github.graphql(q, {
-              owner: projectOwner,
+              owner: repoOwner,
+              repo: repoName,
               number: projectNumber,
             });
 
-            const project = data?.user?.projectV2;
+            const project = data?.repository?.projectV2;
             if (!project) {
-              core.setFailed(`Projeto não encontrado: ${projectOwner} #${projectNumber}`);
+              core.setFailed(`Projeto não encontrado no repositório ${repoOwner}/${repoName}, número ${projectNumber}.`);
               return;
             }
 
