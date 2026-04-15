@@ -52,7 +52,11 @@ Os formulários aplicam a label principal; prioridade e área costumam ser ajust
 
 ## Discussões (opcional)
 
-Para dúvidas gerais, ative **Discussions** no repositório e use o atalho no seletor de Issues. Link direto: [Discussões](https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/discussions).
+O controle de tarefas deste sistema é **Issues + Projects**. O caminho `/discussions` no GitHub **só existe** depois que **Discussions** é ativado; antes disso, esse URL retorna *Page not found*.
+
+**Para habilitar Discussions** (quem tem permissão de administrador no repositório): abra [Settings → General](https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/settings), role até **Features**, marque **Discussions** e salve. Aí a aba **Discussions** aparece no topo do repositório.
+
+Enquanto não ativar, use **Issues** (incluindo o formulário *Ideia ou melhoria* para sugestões de processo) e o **Project Board**.
 
 ## Objetivo
 

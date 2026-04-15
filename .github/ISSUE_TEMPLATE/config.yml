@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Discussões e dúvidas gerais
-    url: https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/discussions
-    about: Dúvidas sobre o fluxo, sugestões de processo e conversas gerais (ative Discussions no repositório se o link não abrir).
+  - name: Ver todas as Issues
+    url: https://github.com/RivasCode-Ops/COD---CONTROLE-OBRIGA-ES-DIARTIA/issues
+    about: Lista e filtros das tarefas — núcleo do fluxo junto com o Project.
